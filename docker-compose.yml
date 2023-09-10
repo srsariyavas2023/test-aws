@@ -1,0 +1,49 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: db
+    image: mysql:5.7
+    platform: linux/x86_64
+    restart: always
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - mynetwork
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - mynetwork
+  server:
+    build: ./server
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      url: db
+    networks:
+      - mynetwork
+  client:
+    build: ./client
+    ports:
+      - 3001:80
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge
+volumes:
+  db:

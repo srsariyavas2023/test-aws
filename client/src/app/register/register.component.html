@@ -1,0 +1,18 @@
+<div>
+    <h2>REGISTER</h2>
+        <div>
+            <label for="username">ID: </label>
+            <input type="text" id="username" [(ngModel)]="model.username">
+        </div>
+        <div>
+            <label for="password">PASSWORD: </label>
+            <input type="password" id="password" [(ngModel)]="model.password">
+        </div>
+        <div>
+            <label for="cpassword">CONFIRM PASSWORD: </label>
+            <input type="password" id="cpassword">
+        </div>
+        <div>
+            <button type="submit" (click)="register()">SUBMIT</button>
+        </div>
+</div>

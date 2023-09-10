@@ -1,0 +1,17 @@
+<div class="login">
+    <p>LOGIN</p>
+    <div>
+        <div>
+            <label for="id">ID: </label>
+            <input type="text" name="id" id="id" [(ngModel)]="model.username">
+        </div>
+        <div>
+            <label for="password">PASSWORD: </label>
+            <input type="text" name="password" id="password" [(ngModel)]="model.password">
+        </div>
+        <button type="submit" (click)="login()">LOGIN</button>
+    </div>
+    <div>
+        <button (click)="goRegister()">REGISTER</button>
+    </div>
+</div>
