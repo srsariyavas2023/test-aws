@@ -15,6 +15,7 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - mynetwork
   phpmyadmin:
@@ -42,8 +43,24 @@ services:
       - 3001:80
     networks:
       - mynetwork
+    depends_on:
+      - webserver
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - mynetwork
 networks:
   mynetwork:
     driver: bridge
 volumes:
   db:
+    driver: local
